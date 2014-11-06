@@ -9,7 +9,7 @@
 
 @interface UIView (Animations)
 
-- (void)doPopInAnimation;
+- (void)doPopInAnimationWithDuration:(CGFloat)duration;
+- (void)doPopOutAnimationWithDuration:(CGFloat)duration;
 - (void)doFadeInAnimation;
-
 @end

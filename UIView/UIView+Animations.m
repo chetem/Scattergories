@@ -10,12 +10,12 @@
 
 @implementation UIView(Animations)
 
-- (void)doPopInAnimation
+- (void)doPopInAnimationWithDuration:(CGFloat)duration
 {
     CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
 	bounceAnimation.fillMode = kCAFillModeBoth;
 	bounceAnimation.removedOnCompletion = YES;
-	bounceAnimation.duration = 0.4;
+	bounceAnimation.duration = duration;
 	bounceAnimation.values = @[
 							[NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f, 0.01f, 0.01f)],
 							[NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f, 1.1f, 1.1f)],
@@ -28,6 +28,25 @@
 									 [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
 	
     [self.layer addAnimation:bounceAnimation forKey:@"alertPopIn"];
+}
+
+-(void)doPopOutAnimationWithDuration:(CGFloat)duration{
+    CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
+    bounceAnimation.fillMode = kCAFillModeBoth;
+    bounceAnimation.removedOnCompletion = YES;
+    bounceAnimation.duration = duration;
+    bounceAnimation.values = @[
+                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.9f, 0.9f, 0.9f)],
+                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(1.1f, 1.1f, 1.1f)],
+                               [NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f, 0.01f, 0.01f)]];
+    bounceAnimation.keyTimes = @[@0.0f, @0.5f, @1.0f];
+    bounceAnimation.timingFunctions = @[
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
+                                        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    
+    [self.layer addAnimation:bounceAnimation forKey:@"alertPopOut"];
+    
 }
 
 - (void)doFadeInAnimation
